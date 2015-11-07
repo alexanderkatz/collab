@@ -5,6 +5,27 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+ host     : 'localhost',
+ user     : 'root',
+ password : 'shimon',
+ database : 'collab'
+});
+
+ connection.connect();
+ 
+ connection.query('SELECT * from users', function(err, rows, fields) {
+   if (!err)
+     console.log('The solution is: ', rows);
+   else
+     console.log('Error while performing Query.');
+     console.log(err);
+
+ });
+ 
+ connection.end();
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -21,6 +42,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Make our db connection accessible to our router
+// MUST BE ABOVE ROUTES
+app.use(function(req,res,next){
+    req.db = connection;
+    next();
+});
 
 app.use('/', routes);
 app.use('/users', users);
