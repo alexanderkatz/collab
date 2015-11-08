@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 	});
 });
 
-/* GET home page. */
+/* GET userlist page. */
 router.get('/userlist', function (req, res, next) {
 	// Get db connection
 	var connection = req.connection;
@@ -18,10 +18,7 @@ router.get('/userlist', function (req, res, next) {
 		if (!err) {
 			for (r in rows) {
 				userlist.push(rows[r].first_name);
-				console.log("user pushed");
-
 			}
-			// Render userlist
 			res.render('userlist', {
 				title: 'Userlist',
 				"userlist": userlist
