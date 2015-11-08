@@ -14,7 +14,7 @@ router.get('/userlist', function (req, res, next) {
 	var connection = req.connection;
 	var userlist = [];
 	// Query
-	connection.query('SELECT * from users', function (err, rows, fields) {
+	connection.query('SELECT first_name from users', function (err, rows, fields) {
 		if (!err) {
 			for (r in rows) {
 				userlist.push(rows[r].first_name);

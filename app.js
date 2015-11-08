@@ -14,16 +14,6 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-
-connection.query('SELECT * from users', function (err, rows, fields) {
-	if (!err) {
-		console.log('The solution is: ', rows);
-	} else {
-		console.log('Error while performing Query.');
-		console.log(err);
-	}
-});
-
 //connection.end();
 
 
