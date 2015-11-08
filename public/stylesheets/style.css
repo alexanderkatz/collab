@@ -179,10 +179,11 @@ a{
 .page-title {
 	font-family: fira_sansregular;
 	text-align: center;
-	padding-bottom: 40px;
-	font-size: 100px;
+	padding-bottom: 10px;
+	font-size: 50px;
 	width: 90%; 
 	max-width: 900px;
 	margin-top: 50px;
 	border-bottom: solid black 5px;
+	margin-bottom: 20px;
 }
