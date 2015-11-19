@@ -2,16 +2,10 @@
 // load the things we need
 
 //var bcrypt   = require('bcrypt-nodejs');
-var configDB = require('../config/database.js');
 var Sequelize = require('sequelize');
-// configuration ========================================
-//var sequelize = new Sequelize('collab','root','shimon', configDB.connection);
-
-
-
-// define the schema for our user model
+var Skill = require('./skill');
+// schema ========================================
 module.exports = function(sequelize) {
-  console.log("user function executing");
   var User = sequelize.define('user', {
     email: {
         type: Sequelize.STRING,
@@ -23,16 +17,7 @@ module.exports = function(sequelize) {
   freezeTableName: true // Model tableName will be the same as the model name
 });
 
-// User.sync({force: true}).then(function () {
-//   // Table created
-//   return User.create({
-//     email: 'john@gmail.com',
-//     password: 'hancock'
-//   });
-// });
-
 // methods ======================
-
 
 User.findByEmail = function(email, cb){
   var queryParameters = {email:email};
@@ -59,5 +44,6 @@ User.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 */
+
 return User;
 };

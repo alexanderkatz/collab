@@ -15,9 +15,14 @@ var configdb = require('./config/database');
 var sequelize = new Sequelize(configdb.dbname,configdb.user,configdb.password,configdb.connection);
 
 var User = require('./models/user')(sequelize);
+var Skill = require('./models/skill')(sequelize);
+User.belongsToMany(Skill,{through: 'UserSkill'});
+Skill.belongsToMany(User,{through: 'UserSkill'});
+
+sequelize.sync();
 User.create({
-  'email':'rick@rick.rick',
-  'password':'ricky'
+  'email':'Phil@Hellmuth.com',
+  'password':'idiotguy '
 },function(err,user) {
     console.log("Errors: "+err);
     console.log("User: "+user);
