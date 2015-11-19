@@ -9,6 +9,19 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var Sequelize = require('sequelize');
+var configdb = require('./config/database');
+
+var sequelize = new Sequelize(configdb.dbname,configdb.user,configdb.password,configdb.connection);
+
+var User = require('./models/user')(sequelize);
+User.create({
+  'email':'rick@rick.rick',
+  'password':'ricky'
+},function(err,user) {
+    console.log("Errors: "+err);
+    console.log("User: "+user);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
