@@ -1,21 +1,38 @@
 // app/models/user.js
 // load the things we need
 
-//var bcrypt   = require('bcrypt-nodejs');
+var bcrypt   = require('bcrypt-nodejs');
 var Sequelize = require('sequelize');
 var Skill = require('./skill');
 // schema ========================================
 module.exports = function(sequelize) {
   var User = sequelize.define('user', {
-    email: {
-        type: Sequelize.STRING,
+    email: Sequelize.STRING,
+    password: Sequelize.STRING
+  }, 
+  {
+    freezeTableName: true, // Model tableName will be the same as the model name
+    classMethods: {
+      generateHash : function(password) {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+      },      
     },
-    password: {
-        type: Sequelize.STRING
+    instanceMethods: {      
+      validPassword : function(password) {
+        return bcrypt.compareSync(password, this.password);
+      }
+    },
+    getterMethods: {
+      someValue: function() {
+        return this.someValue;
+      }
+    },
+    setterMethods: {
+      someValue: function(value) {
+        this.someValue = value;
+      }
     }
-}, {
-  freezeTableName: true // Model tableName will be the same as the model name
-});
+  });
 
 // methods ======================
 
