@@ -2,7 +2,11 @@ module.exports = function(app,passport){
 
 	/* GET home page. */
 	app.get('/', function(req, res, next) {
-	  res.render('index', { title: 'Express' });
+	  res.render('index', { 
+	  	title: 'Express',
+	  	failureFlash : true, // allow flash messages
+		message: req.flash('errMessage')
+	  });
 	});
 
 		// PROFILE SECTION =========================
@@ -26,15 +30,26 @@ module.exports = function(app,passport){
 		// LOGIN ===============================
 		// show the login form
 		app.get('/login', function(req, res) {
-			res.render('login.ejs', { message: req.flash('loginMessage') });
+			res.render('login.ejs', { message: req.flash('errMessage') });
 		});
 
 		// process the login form
 		app.post('/login', passport.authenticate('local-login', {
 			successRedirect : '/profile', // redirect to the secure profile section
-			failureRedirect : '/login', // redirect back to the signup page if there is an error
+			failureRedirect : '/', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
 		}));
+
+		// app.post('/login', function(req, res, next) {
+		//   passport.authenticate('local-login', function(err, user, info) {
+		//     if (err) { return next(err); }
+		//     if (!user) { return res.redirect('/'); }
+		//     req.logIn(user, function(err) {
+		//       if (err) { return next(err); }
+		//       return res.redirect("/profile");
+		//     });
+		//   })(req, res, next);
+		// });
 
 		// SIGNUP =================================
 		// show the signup form
@@ -45,7 +60,7 @@ module.exports = function(app,passport){
 		// process the signup form
 		app.post('/signup', passport.authenticate('local-signup', {
 			successRedirect : '/profile', // redirect to the secure profile section
-			failureRedirect : '/signup', // redirect back to the signup page if there is an error
+			failureRedirect : '/', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
 		}));
 
