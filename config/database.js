@@ -1,6 +1,6 @@
 module.exports = {
 	'connection': {
-  		host: 'localhost',
+  		host: 'sql.cs.oberlin.edu',
   		dialect: 'mysql',
 
   		pool: {
@@ -10,7 +10,7 @@ module.exports = {
   		},
 	},
 
-	'user': 'root',
-	'dbname': 'collab',
-	'password': 'shimon'
+	'user': 'akatz',
+	'dbname': 'akatz',
+	'password': 'collap'
 };
