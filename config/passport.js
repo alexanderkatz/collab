@@ -50,9 +50,9 @@ module.exports = function(passport) {
 					console.log("user: "+user.password);
 
 					if (!user) {
-						done(null, false, req.flash('loginMessage', 'Unknown user'));
+						done(null, false, req.flash('errMessage', 'Unknown user'));
 					} else if (!user.validPassword(password)) {
-						done(null, false, req.flash('loginMessage', 'Wrong password'));
+						done(null, false, req.flash('errMessage', 'Wrong password'));
 					} else {
 						done(null, user);
 					}
@@ -60,7 +60,7 @@ module.exports = function(passport) {
 				.catch(function(e) { 
 					console.log(e.toString());
 
-					done(null, false, req.flash('loginMessage',e.name + " " + e.message));
+					done(null, false, req.flash('errMessage',e.name + " " + e.message));
 				});				
 	}));
 
@@ -84,7 +84,7 @@ module.exports = function(passport) {
 			
 				// check to see if there's already a user with that email
 				if (existingUser) 
-					return done(null, false, req.flash('loginMessage', 'That email is already taken.'));
+					return done(null, false, req.flash('errMessage', 'That email is already taken.'));
 
 				//  If we're logged in, we're connecting a new local account.
 				if(req.user) {
@@ -101,11 +101,11 @@ module.exports = function(passport) {
 				else {
 					// create the user
 					var newUser = User.build ({email: email, password: User.generateHash(password)});	
-					newUser.save().then(function() {done (null, newUser);}).catch(function(err) { done(null, false, req.flash('loginMessage', err));});
+					newUser.save().then(function() {done (null, newUser);}).catch(function(err) { done(null, false, req.flash('errMessage', err));});
 				}
 			})
 			.catch(function (e) {
-				done(null, false, req.flash('loginMessage',e.name + " " + e.message));				
+				done(null, false, req.flash('errMessage',e.name + " " + e.message));				
 			})
 
     }));

@@ -14,3 +14,4 @@ module.exports = {
 	'dbname': 'akatz',
 	'password': 'collap'
 };
+

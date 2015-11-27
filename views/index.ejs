@@ -1,33 +1,65 @@
 <!doctype html>
 <html>
+
 <head>
-	<title>Node Authentication</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; }
-	</style>
+    <title>Node Blog</title>
+
+    <!-- Reset -->
+    <link rel="stylesheet" href="stylesheets/reset.css">
+    
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="fonts/typography.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+
 </head>
-<body>
-<div class="container">
+    <% if (message.length > 0) { %>
+        <div class="error"><%= message %></div>
+    <% } %>
 
-	<div class="jumbotron text-center">
-		<h1><span class="fa fa-lock"></span> Node Authentication</h1>
+<div id="header" class="center-block">
+    <div id="logo">
+        <!-- <img src="images/logo.svg"> -->
+    </div>   
 
-		<p>Login or Register with:</p>
-
-		<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-		<a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
-		<a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-		<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>
-		<a href="/auth/windowslive" class="btn btn-info"><span class="fa fa-windows"></span> Ms Live</a>
-	</div>
-
-	<div class="text-center">
-		<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-		<p>Modified for SQL Sequelize <a href="http://anneblankert.blogspot.nl/2015/06/node-authentication-migrate-from.html">article</a>.</p>
-	</div>
-	
+    <!-- login -->
+    <form id="login-form" action="/login" method="post">
+        <input type="text" class="form-control email-field" name="email" placeholder="email">
+        <input type="password" class="form-control" name="password" placeholder="password">
+        <button type="submit" class="btn-prpl">Login</button>
+    </form>
 </div>
-</body>
-</html>
+<div id="copy" class="center-block">
+    <h1>Collab</h1>
+    <p>
+        Find classmates with the skills you need to get your projects off the ground. 
+    </p>
+</div>
+
+<hr id="home-hr">
+
+<!-- signup -->
+<h2 id="signup-text">Sign Up For A New Account</h2>
+<form id="signup-form" class="center-block" action="/signup" method="post">
+    <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" name="email">
+    </div>
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control username-field" name="username">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password">
+    </div>
+
+    <button type="submit" class="btn-prpl">Signup</button>
+</form>
+
+
+<!-- Include Footer -->
+<% include footer.ejs %>
