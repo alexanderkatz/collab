@@ -29,6 +29,13 @@ module.exports = function(app,passport){
 			title: 'Search'
 		});
 	});
+
+	// SEARCH
+	app.get('/skills', function(req,res){
+		res.render('skills.ejs',{
+			title: 'Skills'
+		});
+	});
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
