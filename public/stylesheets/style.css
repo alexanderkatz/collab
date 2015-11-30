@@ -80,6 +80,13 @@ a{
 	text-align: center;
 }
 
+.container{
+	width: 100%;
+	max-width: 980px;
+	margin: auto;
+	margin-top: 50px;
+}
+
 /* HEADER ****************************************************
 **************************************************************/
 #header{
@@ -192,3 +199,16 @@ a{
 	text-transform: lowercase;
 }
 
+/* SKILLS ******************************************************
+**************************************************************/
+#skillform input{
+	width: 80%;
+	max-width: 500px;
+	height: 50px;
+	margin:auto;
+	padding-left: 10px;
+	display: block;
+	font-size: 25px;
+	border: solid 2px;
+
+}
