@@ -9,9 +9,10 @@ module.exports = function(app,passport){
 	  });
 	});
 
-		// PROFILE SECTION =========================
+	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('profile.ejs', {
+			title: 'Profile',
 			user : req.user
 		});
 	});
@@ -22,6 +23,12 @@ module.exports = function(app,passport){
 		res.redirect('/');
 	});
 
+	// SEARCH
+	app.get('/search', function(req,res){
+		res.render('search.ejs',{
+			title: 'Search'
+		});
+	});
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
@@ -39,17 +46,6 @@ module.exports = function(app,passport){
 			failureRedirect : '/', // redirect back to the signup page if there is an error
 			failureFlash : true // allow flash messages
 		}));
-
-		// app.post('/login', function(req, res, next) {
-		//   passport.authenticate('local-login', function(err, user, info) {
-		//     if (err) { return next(err); }
-		//     if (!user) { return res.redirect('/'); }
-		//     req.logIn(user, function(err) {
-		//       if (err) { return next(err); }
-		//       return res.redirect("/profile");
-		//     });
-		//   })(req, res, next);
-		// });
 
 		// SIGNUP =================================
 		// show the signup form
