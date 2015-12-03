@@ -1,8 +1,9 @@
 <!-- Include Header -->
 <% include header.ejs %>
 <div class="container">
-	<form id="skillform">
-        <input type="text" name="skill" placeholder="type a skill">
+	<form id="skillform" action="/addSkill" method="post">
+        <input type="text" id="skill" name="skill" placeholder="type a skill">
+        <input type="submit"/>
 	</form>
 </div>
 

@@ -12,14 +12,17 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 require('./config/passport')(passport);
-
+//Database
+var configDB = require('./config/database');
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(configDB.dbname,configDB.user,configDB.password,configDB.connection);
 
 
 // var Sequelize = require('sequelize');
 // var configdb = require('./config/database');
 // var sequelize = new Sequelize(configdb.dbname,configdb.user,configdb.password,configdb.connection);
-// var User = require('./models/user')(sequelize);
-// var Skill = require('./models/skill')(sequelize);
+var User = require('./models/user')(sequelize);
+var Skill = require('./models/skill')(sequelize);
 // User.belongsToMany(Skill,{through: 'UserSkill'});
 // Skill.belongsToMany(User,{through: 'UserSkill'});
 
@@ -41,7 +44,10 @@ app.use(session({ secret:'collab', resave:'false', saveUninitialized:'false' }))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
+app.use(function(req,res,next){
+  req.db = sequelize;
+  next();
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));

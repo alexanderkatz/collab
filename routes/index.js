@@ -30,11 +30,26 @@ module.exports = function(app,passport){
 		});
 	});
 
-	// SEARCH
+	// SKILLS -- TODO: THIS GOES IN THE SEARCH ROUTE
 	app.get('/skills', function(req,res){
 		res.render('skills.ejs',{
 			title: 'Skills'
 		});
+	});
+	// TODO: THIS TOO WILL GO IN THE SEARCH ROUTE
+	app.post('/addSkill', function(req, res){
+		//console.log(req.user.id); req.user.id corresponds to the user id which we will want to insert the skill for.
+		//console.log(req.db); req.db is the sequelize
+		var User = req.db.models.user;
+		console.log("req.user.id: "+req.user.id)
+		User.findByID(req.user.id, function(user){
+			console.log('inside of callback function');
+			console.log(user);
+		});
+		//var Skill = req.db.models.skill;
+		//var newSkill = Skill.build ({name: req.body.skill});	
+		//newSkill.save().then(function() {done (null, newSkill);}).catch(function(err) { done(null, false, req.flash('errMessage', err));});
+		//currUser.addSkill([newSkill]);
 	});
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================

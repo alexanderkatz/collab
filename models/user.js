@@ -48,6 +48,18 @@ User.findByEmail = function(email, cb){
   });
 };
 
+User.findByID = function(id, cb){
+  var queryParameters = {id:id};
+  console.log(queryParameters);
+  var query = User.find({ where: {'id':id} });
+  query.then(function (user) {
+    cb(null, user);
+  });
+  query.catch(function (err) {
+    cb(err);
+  });
+};
+
 
 /*
 // generating a hash
