@@ -11,29 +11,17 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-require('./config/passport')(passport);
 //Database
 var configDB = require('./config/database');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(configDB.dbname,configDB.user,configDB.password,configDB.connection);
 
-
-// var Sequelize = require('sequelize');
-// var configdb = require('./config/database');
-// var sequelize = new Sequelize(configdb.dbname,configdb.user,configdb.password,configdb.connection);
 var User = require('./models/user')(sequelize);
 var Skill = require('./models/skill')(sequelize);
-// User.belongsToMany(Skill,{through: 'UserSkill'});
-// Skill.belongsToMany(User,{through: 'UserSkill'});
+User.belongsToMany(Skill,{through: 'UserSkill'});
+Skill.belongsToMany(User,{through: 'UserSkill'});
 
-// sequelize.sync();
-// User.create({
-//   'email':'Phil@Hellmuth.com',
-//   'password':'idiotguy '
-// },function(err,user) {
-//     console.log("Errors: "+err);
-//     console.log("User: "+user);
-// });
+require('./config/passport')(passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

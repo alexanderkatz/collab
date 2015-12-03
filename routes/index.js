@@ -38,17 +38,25 @@ module.exports = function(app,passport){
 	});
 	// TODO: THIS TOO WILL GO IN THE SEARCH ROUTE
 	app.post('/addSkill', function(req, res){
-		//console.log(req.user.id); req.user.id corresponds to the user id which we will want to insert the skill for.
-		//console.log(req.db); req.db is the sequelize
+		
+		// Current User
+		var currUser = req.user;
+		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
-		console.log("req.user.id: "+req.user.id)
-		User.findByID(req.user.id, function(user){
-			console.log('inside of callback function');
-			console.log(user);
+
+		// Before building a skill we need to check if it exists
+
+		var newSkill = Skill.build ({name: req.body.skill});	
+		newSkill.save().then(function() {
+			console.log("currUser: "+currUser);
+			User.findOne({ where: { email: currUser.email }})
+				.then(function(user) {
+				user.addSkill(newSkill);
+			});
+			res.redirect("skills");	
+		}).catch(function(err) { 
+			console.log(err);
 		});
-		//var Skill = req.db.models.skill;
-		//var newSkill = Skill.build ({name: req.body.skill});	
-		//newSkill.save().then(function() {done (null, newSkill);}).catch(function(err) { done(null, false, req.flash('errMessage', err));});
 		//currUser.addSkill([newSkill]);
 	});
 // =============================================================================
@@ -82,6 +90,15 @@ module.exports = function(app,passport){
 			failureFlash : true // allow flash messages
 		}));
 
+	// Function to print key/val pairs
+	function getKeys(obj){
+	    var keys = [];
+	    for(var key in obj){
+	        keys.push(key);
+	        console.log(key+": "+obj[key]);
+	    }
+	    console.log("----------------------------");
+	}
 
 	// route middleware to ensure user is logged in
 	function isLoggedIn(req, res, next) {
