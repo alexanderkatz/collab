@@ -41,12 +41,14 @@ module.exports = function(app,passport){
 		// Get currUser's skills, and log them to the console?
 		User.findOne({ where: { email: currUser.email }}).then(function(user) {
 			user.getSkills().then(function(skillArray){
-				console.log("User has skills: ");
-				for (var i = skillArray.length - 1; i >= 0; i--) {
-					console.log(skillArray[i].name); //TODO: build name array, send to view.
+				var skills = [];
+				for (var i = 0; i < skillArray.length; i++) {
+					skills.push(skillArray[i].name);
+					// console.log(skillArray[i].name); //TODO: build name array, send to view.
 				};
 				res.render('skills.ejs',{
-					title: 'Skills'
+					title: 'Skills',
+					skills: skills
 				});
 			});
 		});

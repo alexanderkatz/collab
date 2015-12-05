@@ -26,7 +26,9 @@ td {
 		<tr>
 			<th>Your skills:</th>
 		</tr>
-		<tr><td>test</td></tr>
+		<% for(var i=0; i<skills.length; i++) {%>
+			<tr><td><%= skills[i] %></td></tr>
+		<% } %>
 	</table>
 </div>
 
