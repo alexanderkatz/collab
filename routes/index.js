@@ -32,10 +32,26 @@ module.exports = function(app,passport){
 
 	// SKILLS -- TODO: THIS GOES IN THE SEARCH ROUTE
 	app.get('/skills', function(req,res){
-		res.render('skills.ejs',{
-			title: 'Skills'
+
+		//Current user, to be used to display a list of the user's current skills on the skills page.
+		var currUser = req.user;
+		var Skill = req.db.models.skill;
+		var User = req.db.models.user;
+
+		// Get currUser's skills, and log them to the console?
+		User.findOne({ where: { email: currUser.email }}).then(function(user) {
+			user.getSkills().then(function(skillArray){
+				console.log("User has skills: ");
+				for (var i = skillArray.length - 1; i >= 0; i--) {
+					console.log(skillArray[i].name); //TODO: build name array, send to view.
+				};
+				res.render('skills.ejs',{
+					title: 'Skills'
+				});
+			});
 		});
 	});
+
 	// TODO: THIS TOO WILL GO IN THE SEARCH ROUTE
 	app.post('/addSkill', function(req, res){
 		
@@ -51,7 +67,7 @@ module.exports = function(app,passport){
 			console.log("currUser: "+currUser);
 			User.findOne({ where: { email: currUser.email }})
 				.then(function(user) {
-				user.addSkill(newSkill);
+				user.addSkill(newSkill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
 			});
 			res.redirect("skills");	
 		}).catch(function(err) { 

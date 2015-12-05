@@ -1,10 +1,33 @@
 <!-- Include Header -->
 <% include header.ejs %>
+<style>
+table {
+    border: 1px solid black;
+    width: 51%;
+}
+th {
+	font-weight: bold;
+	font-size: 200%;
+}
+td {
+	font-size: 200%
+}
+#userSkills {
+	margin-top: 35px;
+	margin-left: 240px;
+}
+</style>
 <div class="container">
 	<form id="skillform" action="/addSkill" method="post">
         <input type="text" id="skill" name="skill" placeholder="type a skill">
         <input type="submit"/>
 	</form>
+	<table id="userSkills">
+		<tr>
+			<th>Your skills:</th>
+		</tr>
+		<tr><td>test</td></tr>
+	</table>
 </div>
 
 <!-- Include Footer -->
