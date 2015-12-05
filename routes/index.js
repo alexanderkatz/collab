@@ -42,9 +42,9 @@ module.exports = function(app,passport){
 		User.findOne({ where: { email: currUser.email }}).then(function(user) {
 			user.getSkills().then(function(skillArray){
 				var skills = [];
+				// store skill names in skills array
 				for (var i = 0; i < skillArray.length; i++) {
 					skills.push(skillArray[i].name);
-					// console.log(skillArray[i].name); //TODO: build name array, send to view.
 				};
 				res.render('skills.ejs',{
 					title: 'Skills',
@@ -61,22 +61,32 @@ module.exports = function(app,passport){
 		var currUser = req.user;
 		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
-
-		// Before building a skill we need to check if it exists
-
-		var newSkill = Skill.build ({name: req.body.skill});	
-		newSkill.save().then(function() {
-			console.log("currUser: "+currUser);
-			User.findOne({ where: { email: currUser.email }})
+		
+		Skill
+		  .findOrCreate({where: {name: req.body.skill}})
+		  .spread(function(skill, created) {
+		  	User.findOne({ where: { email: currUser.email }})
 				.then(function(user) {
-				user.addSkill(newSkill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
-			});
+					user.addSkill(skill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
+				});
 			res.redirect("skills");	
 		}).catch(function(err) { 
 			console.log(err);
 		});
-		//currUser.addSkill([newSkill]);
 	});
+
+		// // Before building a skill we need to check if it exists
+		// var newSkill = Skill.build ({name: req.body.skill});	
+		// newSkill.save().then(function() {
+		// 	console.log("currUser: "+currUser);
+		// 	User.findOne({ where: { email: currUser.email }})
+		// 		.then(function(user) {
+		// 		user.addSkill(newSkill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
+		// 	});
+		// 	res.redirect("skills");	
+		// }).catch(function(err) { 
+		// 	console.log(err);
+		// });
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
