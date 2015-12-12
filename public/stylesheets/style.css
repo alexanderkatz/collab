@@ -201,14 +201,39 @@ a{
 
 /* SKILLS ******************************************************
 **************************************************************/
+#skillform{
+	width: 570px;
+	margin: auto;
+}
 #skillform input{
-	width: 80%;
-	max-width: 500px;
 	height: 50px;
-	margin:auto;
-	padding-left: 10px;
-	display: block;
-	font-size: 25px;
-	border: solid 2px;
+	border: solid 1px;
+	display: inline-block;
 
+}
+#skillform #type-skill{
+	width: 500px;
+	padding-left: 10px;
+	font-size: 25px;
+}
+#skillform #submit-skill{
+	width: 66px;
+}
+
+/* User Skills Table */
+#user-skills{
+	font-family: fira_sansregular;
+	margin: auto;
+	margin-top: 50px;
+	width: 800px;
+}
+#user-skills tr th{
+	height: 35px;
+	line-height: 35px;
+	font-size: 25px;
+	text-align: left;
+}
+#user-skills tr{
+	height: 25px;
+	line-height: 25px;
 }

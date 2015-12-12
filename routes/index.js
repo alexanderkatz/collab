@@ -11,28 +11,6 @@ module.exports = function(app,passport){
 
 	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {
-			title: 'Profile',
-			user : req.user
-		});
-	});
-
-	// LOGOUT ==============================
-	app.get('/logout', function(req, res) {
-		req.logout();
-		res.redirect('/');
-	});
-
-	// SEARCH
-	app.get('/search', function(req,res){
-		res.render('search.ejs',{
-			title: 'Search'
-		});
-	});
-
-	// SKILLS -- TODO: THIS GOES IN THE SEARCH ROUTE
-	app.get('/skills', function(req,res){
-
 		//Current user, to be used to display a list of the user's current skills on the skills page.
 		var currUser = req.user;
 		var Skill = req.db.models.skill;
@@ -46,11 +24,41 @@ module.exports = function(app,passport){
 				for (var i = 0; i < skillArray.length; i++) {
 					skills.push(skillArray[i].name);
 				};
-				res.render('skills.ejs',{
-					title: 'Skills',
-					skills: skills
+				res.render('profile.ejs',{
+					title: 'Profile',
+					skills: skills,
+					user : req.user,
+
 				});
 			});
+		});
+	});
+
+	app.get('/users/:username', function(req,res){
+		var User = req.db.models.user;
+		var username = req.params.username;
+
+		User.findOne({ where: { email: username }}).then(function(user) {
+			if (user){
+				// render user profile
+			}
+			else{
+				// user does not exist
+			}
+		});
+		
+	});
+
+	// LOGOUT ==============================
+	app.get('/logout', function(req, res) {
+		req.logout();
+		res.redirect('/');
+	});
+
+	// SEARCH
+	app.get('/search', function(req,res){
+		res.render('search.ejs',{
+			title: 'Search'
 		});
 	});
 
@@ -69,24 +77,13 @@ module.exports = function(app,passport){
 				.then(function(user) {
 					user.addSkill(skill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
 				});
-			res.redirect("skills");	
+			res.redirect("profile");	
 		}).catch(function(err) { 
 			console.log(err);
 		});
 	});
 
-		// // Before building a skill we need to check if it exists
-		// var newSkill = Skill.build ({name: req.body.skill});	
-		// newSkill.save().then(function() {
-		// 	console.log("currUser: "+currUser);
-		// 	User.findOne({ where: { email: currUser.email }})
-		// 		.then(function(user) {
-		// 		user.addSkill(newSkill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
-		// 	});
-		// 	res.redirect("skills");	
-		// }).catch(function(err) { 
-		// 	console.log(err);
-		// });
+
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
