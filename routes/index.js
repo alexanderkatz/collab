@@ -34,16 +34,28 @@ module.exports = function(app,passport){
 		});
 	});
 
-	app.get('/users/:username', function(req,res){
+	app.get('/users/:username', isLoggedIn, function(req,res){
+		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
 		var username = req.params.username;
 
 		User.findOne({ where: { email: username }}).then(function(user) {
 			if (user){
-				// render user profile
+				user.getSkills().then(function(skillArray){
+					var skills = [];
+					// store skill names in skills array
+					for (var i = 0; i < skillArray.length; i++) {
+						skills.push(skillArray[i].name);
+					};
+					res.render('profile.ejs',{
+						title: 'Profile',
+						skills: skills,
+						user : user
+					});
+				});
 			}
 			else{
-				// user does not exist
+				console.log("User does not exist");
 			}
 		});
 		
@@ -135,3 +147,8 @@ module.exports = function(app,passport){
 	
 // End of exports
 }
+
+		// console.log("user id: "+req.user.id);
+		// passport.deserializeUser(req.user.id, function(user){
+		// 	console.log("callback "+user);
+		// });
