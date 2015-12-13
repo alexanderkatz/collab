@@ -13,31 +13,14 @@ module.exports = function(app,passport){
 	app.get('/profile', isLoggedIn, function(req, res) {
 		//Current user, to be used to display a list of the user's current skills on the skills page.
 		var currUser = req.user;
-		var Skill = req.db.models.skill;
-		var User = req.db.models.user;
-
-		// Get currUser's skills, and log them to the console?
-		User.findOne({ where: { email: currUser.email }}).then(function(user) {
-			user.getSkills().then(function(skillArray){
-				var skills = [];
-				// store skill names in skills array
-				for (var i = 0; i < skillArray.length; i++) {
-					skills.push(skillArray[i].name);
-				};
-				res.render('profile.ejs',{
-					title: 'Profile',
-					skills: skills,
-					user : req.user,
-
-				});
-			});
-		});
+		res.redirect('/users/'+req.user.email);
 	});
 
 	app.get('/users/:username', isLoggedIn, function(req,res){
 		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
 		var username = req.params.username;
+		var currUserName = req.user.email;
 
 		User.findOne({ where: { email: username }}).then(function(user) {
 			if (user){
@@ -47,7 +30,12 @@ module.exports = function(app,passport){
 					for (var i = 0; i < skillArray.length; i++) {
 						skills.push(skillArray[i].name);
 					};
-					res.render('profile.ejs',{
+					// check if currUserName is the same as requested
+					var view = "profile";
+					if (currUserName == username){
+						view = "editprofile" 
+					} 
+					res.render(view + '.ejs',{
 						title: 'Profile',
 						skills: skills,
 						user : user
@@ -141,7 +129,6 @@ module.exports = function(app,passport){
 	function isLoggedIn(req, res, next) {
 		if (req.isAuthenticated())
 			return next();
-
 		res.redirect('/');
 	}
 	
