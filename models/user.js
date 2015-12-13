@@ -7,7 +7,14 @@ var Skill = require('./skill');
 // schema ========================================
 module.exports = function(sequelize) {
   var User = sequelize.define('user', {
-    email: Sequelize.STRING,
+    email: {
+      type: Sequelize.STRING,
+      unique: true
+    },
+    username: {
+        type: Sequelize.STRING,
+        unique: true
+    },
     password: Sequelize.STRING
   }, 
   {
