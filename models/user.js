@@ -12,8 +12,8 @@ module.exports = function(sequelize) {
       unique: true
     },
     username: {
-        type: Sequelize.STRING,
-        unique: true
+      type: Sequelize.STRING,
+      unique: true
     },
     password: Sequelize.STRING
   }, 

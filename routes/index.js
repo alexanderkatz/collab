@@ -12,9 +12,34 @@ module.exports = function(app,passport){
 	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function(req, res) {
 		//Current user, to be used to display a list of the user's current skills on the skills page.
-		var currUser = req.user;
 		res.redirect('/users/'+req.user.email);
 	});
+
+	app.get('/editprofile', isLoggedIn, function(req, res) {
+		var Skill = req.db.models.skill;
+		var User = req.db.models.user;
+		var currUserName = req.user.email;
+
+		User.findOne({ where: { email: currUserName }}).then(function(user) {
+			if (user){
+				user.getSkills({order: ['name']}).then(function(skillArray){
+					var skills = [];
+					// store skill names in skills array
+					for (var i = 0; i < skillArray.length; i++) {
+						skills.push(skillArray[i].name);
+					};
+					res.render('editprofile.ejs',{
+						title: 'Profile',
+						skills: skills,
+						user : user
+					});
+				});
+			}
+			else{
+				console.log("User does not exist");
+			}
+		});
+	})
 
 	app.get('/users/:username', isLoggedIn, function(req,res){
 		var Skill = req.db.models.skill;
@@ -24,7 +49,7 @@ module.exports = function(app,passport){
 
 		User.findOne({ where: { email: username }}).then(function(user) {
 			if (user){
-				user.getSkills().then(function(skillArray){
+				user.getSkills({order: ['name']}).then(function(skillArray){
 					var skills = [];
 					// store skill names in skills array
 					for (var i = 0; i < skillArray.length; i++) {
@@ -33,7 +58,7 @@ module.exports = function(app,passport){
 					// check if currUserName is the same as requested
 					var view = "profile";
 					if (currUserName == username){
-						view = "editprofile" 
+						view = "adminprofile" 
 					} 
 					res.render(view + '.ejs',{
 						title: 'Profile',
@@ -62,7 +87,6 @@ module.exports = function(app,passport){
 		});
 	});
 
-	// TODO: THIS TOO WILL GO IN THE SEARCH ROUTE
 	app.post('/addSkill', function(req, res){
 		
 		// Current User
@@ -75,9 +99,30 @@ module.exports = function(app,passport){
 		  .spread(function(skill, created) {
 		  	User.findOne({ where: { email: currUser.email }})
 				.then(function(user) {
-					user.addSkill(skill); //TODO: eliminate possibility of adding duplicate elements, which currently occurs (check user id = 3)
+					user.addSkill(skill);
 				});
-			res.redirect("profile");	
+			res.redirect("editprofile");	
+		}).catch(function(err) { 
+			console.log(err);
+		});
+	});
+
+	app.post('/removeSkill', function(req, res){
+		
+		// Current User
+		//remove the appropriate skill from the user->skill association(table)
+		var currUser = req.user;
+		var Skill = req.db.models.skill;
+		var User = req.db.models.user;
+
+		Skill
+		  .findOne({where: {name: req.body.skillremove}})
+		  .then(function(skill) {
+		  	User.findOne({ where: { email: currUser.email }})
+				.then(function(user) {
+					user.removeSkill(skill);
+				});
+			res.redirect("editprofile");	
 		}).catch(function(err) { 
 			console.log(err);
 		});

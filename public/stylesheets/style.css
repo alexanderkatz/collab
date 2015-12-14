@@ -220,6 +220,36 @@ a{
 	width: 66px;
 }
 
+#removeform{
+	width: 570px;
+	margin: auto;
+}
+#removeform input{
+	height: 50px;
+	border: solid 1px;
+	display: inline-block;
+
+}
+#removeform #type-remove{
+	width: 500px;
+	padding-left: 10px;
+	font-size: 25px;
+}
+#removeform #remove-skill{
+	width: 66px;
+}
+#editbutton{
+	width: 570px;	
+	margin: auto;
+}
+#editbutton input{
+	height: 50px;
+	border: solid 1px;
+	display: inline-block;
+
+}
+
+
 /* User Skills Table */
 #user-skills{
 	font-family: fira_sansregular;
