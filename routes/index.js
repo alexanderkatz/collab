@@ -83,17 +83,26 @@ module.exports = function(app,passport){
 	// SEARCH
 	app.post('/search', function(req,res){
 		// console.log(req.body.search);
-		var User = req.db.models.user;
-		User.findAll().then(function(users) {
-			var usernames = [];
-			// store skill names in skills array
-			for (var i = 0; i < users.length; i++) {
-				usernames.push(users[i].username);
-				console.log(usernames[i]);
-			}
+		var Skill = req.db.models.skill;
+		var searchTerm = req.body.search;
+		Skill.findOne({where: {name: searchTerm} }).then(function(skill) {
+			skill.getUsers().then(function(users) {
+				var usernames = [];
+				// store skill names in skills array
+				for (var i = 0; i < users.length; i++) {
+					usernames.push(users[i].username);
+					console.log(usernames[i]);
+				}
+				res.render('searchresults.ejs',{
+					title: 'Results',
+					users: usernames
+				});
+			});
+		}).catch(function(err) {
+			console.log(err);
 			res.render('searchresults.ejs',{
 				title: 'Results',
-				users: usernames
+				users: ["no users you idiot guy!!"]
 			});
 		});
 
