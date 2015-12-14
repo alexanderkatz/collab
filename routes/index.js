@@ -2,7 +2,7 @@ module.exports = function(app,passport){
 
 	/* GET home page. */
 	app.get('/', function(req, res, next) {
-	  res.render('index', { 
+	  res.render('index', {
 	  	title: 'Express',
 	  	failureFlash : true, // allow flash messages
 		message: req.flash('errMessage')
@@ -45,9 +45,9 @@ module.exports = function(app,passport){
 		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
 		var username = req.params.username;
-		var currUserName = req.user.email;
+		var currUserName = req.user.username;
 
-		User.findOne({ where: { email: username }}).then(function(user) {
+		User.findOne({ where: { username: username }}).then(function(user) {
 			if (user){
 				user.getSkills({order: ['name']}).then(function(skillArray){
 					var skills = [];
@@ -58,8 +58,8 @@ module.exports = function(app,passport){
 					// check if currUserName is the same as requested
 					var view = "profile";
 					if (currUserName == username){
-						view = "adminprofile" 
-					} 
+						view = "adminprofile"
+					}
 					res.render(view + '.ejs',{
 						title: 'Profile',
 						skills: skills,
@@ -71,7 +71,7 @@ module.exports = function(app,passport){
 				console.log("User does not exist");
 			}
 		});
-		
+
 	});
 
 	// LOGOUT ==============================
@@ -81,19 +81,30 @@ module.exports = function(app,passport){
 	});
 
 	// SEARCH
-	app.get('/search', function(req,res){
-		res.render('search.ejs',{
-			title: 'Search'
+	app.post('/search', function(req,res){
+		// console.log(req.body.search);
+		var User = req.db.models.user;
+		User.findAll().then(function(users) {
+			var usernames = [];
+			// store skill names in skills array
+			for (var i = 0; i < users.length; i++) {
+				usernames.push(users[i].username);
+				console.log(usernames[i]);
+			}
+			res.render('searchresults.ejs',{
+				title: 'Results',
+				users: usernames
+			});
 		});
+
 	});
 
 	app.post('/addSkill', function(req, res){
-		
 		// Current User
 		var currUser = req.user;
 		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
-		
+
 		Skill
 		  .findOrCreate({where: {name: req.body.skill}})
 		  .spread(function(skill, created) {
@@ -101,14 +112,14 @@ module.exports = function(app,passport){
 				.then(function(user) {
 					user.addSkill(skill);
 				});
-			res.redirect("editprofile");	
-		}).catch(function(err) { 
+			res.redirect("editprofile");
+		}).catch(function(err) {
 			console.log(err);
 		});
 	});
 
 	app.post('/removeSkill', function(req, res){
-		
+
 		// Current User
 		//remove the appropriate skill from the user->skill association(table)
 		var currUser = req.user;
@@ -122,8 +133,8 @@ module.exports = function(app,passport){
 				.then(function(user) {
 					user.removeSkill(skill);
 				});
-			res.redirect("editprofile");	
-		}).catch(function(err) { 
+			res.redirect("editprofile");
+		}).catch(function(err) {
 			console.log(err);
 		});
 	});
@@ -176,7 +187,7 @@ module.exports = function(app,passport){
 			return next();
 		res.redirect('/');
 	}
-	
+
 // End of exports
 }
 

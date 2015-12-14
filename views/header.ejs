@@ -6,7 +6,7 @@
 
     <!-- Reset -->
     <link rel="stylesheet" href="/stylesheets/reset.css">
-    
+
     <link rel="stylesheet" href="/stylesheets/style.css">
     <!-- Fonts -->
     <link rel="stylesheet" href="/fonts/typography.css">
@@ -20,8 +20,12 @@
         <ul id="menu">
             <li><a href="/">HOME</a></li>
             <li><a href="/profile">PROFILE</a></li>
-            <li><a href="/search">SEARCH</a></li>
+            <li>
+              <form id="searchform" action="/search" method="post">
+                    <input type="text" id="search" name="search" placeholder="search by skill">
+                    <input id="submit-search" type="submit" value="search"/>
+              </form>
+            </li>
             <li><a href="/logout">LOGOUT</a></li>
         </ul>
     </div>
-

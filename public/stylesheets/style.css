@@ -8,7 +8,7 @@
 body {
 	padding: 10px;
 }
-button, input{	
+button, input{
 	outline: none;
     box-sizing: border-box;
     vertical-align: top;
@@ -28,7 +28,7 @@ a{
 	width: 10px;
 }
 #left { left: 0; }
-#right { right: 0; }		
+#right { right: 0; }
 #top, #bottom {
 	left: 0; right: 0;
 	height: 10px;
@@ -50,8 +50,8 @@ a{
 	margin-right: auto;
 	float: none !important;
 }
-.width{	
-	width: 90%; 
+.width{
+	width: 90%;
 	max-width: 900px;
 }
 /* Gray Link: Purple on Hover*/
@@ -90,7 +90,7 @@ a{
 /* HEADER ****************************************************
 **************************************************************/
 #header{
-	width: 100%; 
+	width: 100%;
 	height: 54px;
 	border-bottom: solid #58585B 3px;
 	line-height: 54px;
@@ -114,13 +114,19 @@ a{
 	right: 20px;
 	display: flex;
 	justify-content: space-between;
-	width: 325px;
+	width: 450px;
 }
 
-#menu li{
-
+#menu input,button{
+	vertical-align: middle;
+	height: 30px;
+	border: solid 1px;
+	text-transform: uppercase;
 }
-
+#menu #search{
+	width: 160px;
+	padding: 5px;
+}
 
 /* HOME ******************************************************
 **************************************************************/
@@ -135,7 +141,7 @@ a{
 	font-family: fira_sansbold;
 	font-size: 50px;
 }
-#copy p{	
+#copy p{
 	margin-top: 42px;
 	line-height: 35px;
 	font-family: fira_sanslight;
@@ -239,7 +245,7 @@ a{
 	width: 66px;
 }
 #editbutton{
-	width: 570px;	
+	width: 570px;
 	margin: auto;
 }
 #editbutton input{

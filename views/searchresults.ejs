@@ -1,0 +1,18 @@
+<!-- Include Header -->
+<% include header.ejs %>
+<div class="container">
+
+	<table id="">
+		<tr>
+			<th>Users:</th>
+		</tr>
+		<% for(var i=0; i<users.length; i++) {%>
+			<tr><td><%= users[i] %></td></tr>
+		<% } %>
+	</table>
+
+
+</div>
+
+<!-- Include Footer -->
+<% include footer.ejs %>
