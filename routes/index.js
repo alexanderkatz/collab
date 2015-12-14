@@ -12,7 +12,7 @@ module.exports = function(app,passport){
 	// PROFILE SECTION =========================
 	app.get('/profile', isLoggedIn, function(req, res) {
 		//Current user, to be used to display a list of the user's current skills on the skills page.
-		res.redirect('/users/'+req.user.email);
+		res.redirect('/users/'+req.user.username);
 	});
 
 	app.get('/editprofile', isLoggedIn, function(req, res) {
