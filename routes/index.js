@@ -136,7 +136,7 @@ module.exports = function(app,passport){
 		var User = req.db.models.user;
 
 		Skill
-		  .findOne({where: {name: req.body.skillremove}})
+		  .findOne({where: {name: req.body.skillName}})
 		  .then(function(skill) {
 		  	User.findOne({ where: { email: currUser.email }})
 				.then(function(user) {
