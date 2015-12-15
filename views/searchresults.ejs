@@ -7,7 +7,9 @@
 			<th>Users:</th>
 		</tr>
 		<% for(var i=0; i<users.length; i++) {%>
-			<tr><td><%= users[i] %></td></tr>
+			<tr><td>
+				<a href="/users/<%=users[i]%>" ><%=users[i]%></a>
+			</td></tr>
 		<% } %>
 	</table>
 
