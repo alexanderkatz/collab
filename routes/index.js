@@ -81,10 +81,10 @@ module.exports = function(app,passport){
 	});
 
 	// SEARCH
-	app.post('/search', function(req,res){
-		// console.log(req.body.search);
+	app.get('/search', function(req,res){
+		console.log("req.body.search "+req.body.search);
 		var Skill = req.db.models.skill;
-		var searchTerm = req.body.search;
+		var searchTerm = req.query.search;
 		Skill.findOne({where: {name: searchTerm} }).then(function(skill) {
 			skill.getUsers().then(function(users) {
 				var usernames = [];

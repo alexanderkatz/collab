@@ -4,13 +4,16 @@
 
 	<!-- Button to edit profile -->
 	<input type="button" onclick="location.href='/editprofile';" value="Edit Your Profile"/>
-			
+
 	<table id="user-skills">
 		<tr>
 			<th>Your current skills:</th>
 		</tr>
+
 		<% for(var i=0; i<skills.length; i++) {%>
-			<tr><td><%= skills[i] %></td></tr>
+			<tr>
+				<td><a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a></td>
+			</tr>
 		<% } %>
 	</table>
 

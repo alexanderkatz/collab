@@ -1,13 +1,13 @@
 <!-- Include Header -->
 <% include header.ejs %>
 <div class="container">
-			
+
 	<table id="user-skills">
 		<tr>
 			<th><%= user.username%>'s current skills:</th>
 		</tr>
 		<% for(var i=0; i<skills.length; i++) {%>
-			<tr><td><%= skills[i] %></td></tr>
+			<tr><td><a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a></td></tr>
 		<% } %>
 	</table>
 
