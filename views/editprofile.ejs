@@ -2,17 +2,17 @@
 <% include header.ejs %>
 <div class="container">
 
+	<!-- Form to edit blurb -->
+	<form id="blurbform" action="/editBlurb" method="post">
+        <input type="text" name="blurb" value="<%= blurb%>">
+        <input type="submit" value="Done"/>
+	</form>
+
 	<!-- Form to add skills -->
 	<form id="skillform" action="/addSkill" method="post">
         <input type="text" id="type-skill" name="skill" placeholder="Add a skill here">
         <input id="submit-skill" type="submit" value="Add"/>
 	</form>
-
-	<!-- Form to remove skills -->
-	<!-- <form id="removeform" action="/removeSkill" method="post">
-        <input type="text" id="type-remove" name="skillremove" placeholder="Remove a skill here">
-        <input id="remove-skill" type="submit" value="Remove"/>
-	</form> -->
 
 	<!-- Button to finish editing -->
 	<input type="button" onclick="location.href='/profile';" value="Done"/>
@@ -34,3 +34,5 @@
 
 <!-- Include Footer -->
 <% include footer.ejs %>
+
+
