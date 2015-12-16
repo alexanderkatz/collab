@@ -3,23 +3,17 @@
 <div class="container">
 
 	<!-- Button to edit profile -->
-	<input type="button" onclick="location.href='/editprofile';" value="Edit Your Profile"/>
+	<input id="editprofile-button" type="button" onclick="location.href='/editprofile';" value="Edit Your Profile"/>
 
 	<div id="blurb"><%=blurb%></div>
 
-	<table id="user-skills">
-		<tr>
-			<th>Your current skills:</th>
-		</tr>
-
+	<div id="user-skills">
+		<p>Your current skills:</p>
 		<% for(var i=0; i<skills.length; i++) {%>
-			<tr>
-				<td><a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a></td>
-			</tr>
+			<div class="skill-row">
+				<a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a>
+			</div>
 		<% } %>
-	</table>
-
-
 
 </div>
 

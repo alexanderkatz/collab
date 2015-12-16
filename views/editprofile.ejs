@@ -11,24 +11,22 @@
 	<!-- Form to add skills -->
 	<form id="skillform" action="/addSkill" method="post">
         <input type="text" id="type-skill" name="skill" placeholder="Add a skill here">
-        <input id="submit-skill" type="submit" value="Add"/>
+        <input id="submit-skill" type="submit" value="Add Skill"/>
 	</form>
 
 	<!-- Button to finish editing -->
-	<input type="button" onclick="location.href='/profile';" value="Done"/>
+	<button type="button" onclick="location.href='/profile';">Done Editing</button>
 
 	<!-- Display User's Skills and Remove Button -->
-		<table id="user-skills">
-			<tr>
-				<th>Your current skills:</th>
-			</tr>
+		<div id="user-skills">
+			<p>Your current skills:</p>
+
 			<% for(var i=0; i<skills.length; i++) {%>
-				<tr>
-					<td><%= skills[i] %></td>
-					<td><button onclick="removeSkill('<%= skills[i] %>')" type="button" class="delete">delete</button></td>
-				</tr>
+				<div class="skill-row">
+					<button onclick="removeSkill('<%= skills[i] %>')" type="button" class="delete">delete</button>
+					<div class="skill"><%= skills[i] %></div>
+				</div>
 			<% } %>
-		</table>
 
 </div>
 

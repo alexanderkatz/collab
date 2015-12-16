@@ -1,19 +1,17 @@
 <!-- Include Header -->
 <% include header.ejs %>
 <div class="container">
-	
+
 	<div id="blurb"><%= blurb %></div>
 
-	<table id="user-skills">
-		<tr>
-			<th><%= username %>'s current skills:</th>
-		</tr>
+
+	<div id="user-skills">
+		<p><%= username%>'s current skills:</p>
 		<% for(var i=0; i<skills.length; i++) {%>
-			<tr><td><a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a></td></tr>
+			<div class="skill-row">
+				<a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a>
+			</div>
 		<% } %>
-	</table>
-
-
 </div>
 
 <!-- Include Footer -->
