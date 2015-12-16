@@ -46,8 +46,6 @@ module.exports = function(passport) {
     function(req, email, password, done) {
 			User.findOne({ where: { email: email }})
 				.then(function(user) {
-					console.log("user: "+user.email);
-					console.log("pw: "+user.password);
 
 					if (!user) {
 						done(null, false, req.flash('errMessage', 'Unknown user'));
