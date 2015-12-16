@@ -2,17 +2,13 @@
 <% include header.ejs %>
 <div class="container">
 
-	<table id="">
-		<tr>
-			<th>Users:</th>
-		</tr>
+	<div id="users">
 		<% for(var i=0; i<users.length; i++) {%>
-			<tr><td>
+			<div>
 				<a href="/users/<%=users[i]%>" ><%=users[i]%></a>
-			</td></tr>
+			</div>
 		<% } %>
-	</table>
-
+	</div>
 
 </div>
 

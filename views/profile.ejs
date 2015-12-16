@@ -2,16 +2,14 @@
 <% include header.ejs %>
 <div class="container">
 
-	<table id="user-skills">
-		<tr>
-			<th><%= user.username%>'s current skills:</th>
-		</tr>
+	<div id="user-skills">
+		<p><%= user.username%>'s current skills:</p>
+
 		<% for(var i=0; i<skills.length; i++) {%>
-			<tr><td><a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a></td></tr>
+			<div class="skill-row">
+				<a href="/search?search=<%= skills[i] %>"><%= skills[i] %></a>
+			</div>
 		<% } %>
-	</table>
-
-
 </div>
 
 <!-- Include Footer -->
