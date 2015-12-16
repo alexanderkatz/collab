@@ -12,6 +12,7 @@ button, input{
 	outline: none;
   box-sizing: border-box;
   vertical-align: top;
+	font-family: helvetica;
 }
 a{
 	text-decoration: none !important;
@@ -215,6 +216,7 @@ a{
 #skillform{
 	width: 570px;
 	margin: auto;
+	margin-bottom: 10px;
 }
 #skillform input{
 	height: 50px;
@@ -230,9 +232,8 @@ a{
 #skillform #submit-skill{
 	width: 20%;
 	background: #77DD77;
-	font-family: fira_sansregular;
 	font-size: 15px;
-
+	text-transform: uppercase;
 }
 /* User Skills Table */
 #user-skills{
