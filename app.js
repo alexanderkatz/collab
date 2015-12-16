@@ -16,7 +16,7 @@ var configDB = require('./config/database');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(configDB.dbname,configDB.user,configDB.password,configDB.connection);
 
-// sequelize.sync({force: true});
+//sequelize.sync({force: true});
 
 var User = require('./models/user')(sequelize);
 var Skill = require('./models/skill')(sequelize);

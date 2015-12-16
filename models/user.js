@@ -15,7 +15,8 @@ module.exports = function(sequelize) {
       type: Sequelize.STRING,
       unique: true
     },
-    password: Sequelize.STRING
+    password: Sequelize.STRING,
+    blurb: Sequelize.STRING
   }, 
   {
     freezeTableName: true, // Model tableName will be the same as the model name

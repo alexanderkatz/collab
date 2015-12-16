@@ -31,7 +31,7 @@ module.exports = function(app,passport){
 					res.render('editprofile.ejs',{
 						title: 'Profile',
 						skills: skills,
-						user : user
+						blurb : user.blurb
 					});
 				});
 			}
@@ -63,7 +63,8 @@ module.exports = function(app,passport){
 					res.render(view + '.ejs',{
 						title: 'Profile',
 						skills: skills,
-						user : user
+						username : user.username,
+						blurb: user.blurb
 					});
 				});
 			}
@@ -148,6 +149,18 @@ module.exports = function(app,passport){
 		});
 	});
 
+	app.post('/editBlurb', function(req, res){
+		var userID = req.user.id;
+		var User = req.db.models.user;
+		var blurb = req.body.blurb;
+
+		User.findById(userID)
+		  .then(function(user) {
+			user.blurb = blurb;
+			user.save()
+			  .then(function() { res.redirect("editprofile"); });
+		})
+	})
 
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
