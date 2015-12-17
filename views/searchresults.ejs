@@ -3,6 +3,8 @@
 <div class="container">
 
 	<div id="users">
+		<div><p>Users with skill: <%=skill%></p></div>
+
 		<% for(var i=0; i<users.length; i++) {%>
 			<div>
 				<a href="/users/<%=users[i]%>" ><%=users[i]%></a>

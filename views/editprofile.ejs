@@ -1,11 +1,13 @@
 <!-- Include Header -->
 <% include header.ejs %>
 <div class="container">
+	<!-- Button to finish editing -->
+	<button id="profile-button" type="button" onclick="location.href='/profile';">Return to Profile</button>
 
 	<!-- Form to edit blurb -->
 	<form id="blurbform" action="/editBlurb" method="post">
-        <input type="text" name="blurb" value="<%= blurb%>">
-        <input type="submit" value="Done"/>
+				<textarea name="blurb" form="blurbform" placeholder="Type a short bio here"><%= blurb%></textarea>
+        <input class="green-button" type="submit" value="Save Changes"/>
 	</form>
 
 	<!-- Form to add skills -->
@@ -13,9 +15,6 @@
         <input type="text" id="type-skill" name="skill" placeholder="Add a skill here">
         <input id="submit-skill" type="submit" value="Add Skill"/>
 	</form>
-
-	<!-- Button to finish editing -->
-	<button type="button" onclick="location.href='/profile';">Done Editing</button>
 
 	<!-- Display User's Skills and Remove Button -->
 		<div id="user-skills">
@@ -32,5 +31,3 @@
 
 <!-- Include Footer -->
 <% include footer.ejs %>
-
-

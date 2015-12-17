@@ -82,7 +82,7 @@ module.exports = function(app,passport){
 	});
 
 	// SEARCH
-	app.get('/search', function(req,res){
+	app.get('/search', isLoggedIn, function(req,res){
 		console.log("req.body.search "+req.body.search);
 		var Skill = req.db.models.skill;
 		var searchTerm = req.query.search;
@@ -96,7 +96,8 @@ module.exports = function(app,passport){
 				}
 				res.render('searchresults.ejs',{
 					title: 'Results',
-					users: usernames
+					users: usernames,
+					skill: skill.name
 				});
 			});
 		}).catch(function(err) {

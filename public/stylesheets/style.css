@@ -65,6 +65,14 @@ a{
 	text-decoration: none;
 }
 
+.green-button{
+	border: solid black 1px;
+	background: #77DD77;
+	text-transform: uppercase;
+	padding: 10px;
+	height: 50px;
+}
+
 /*Error Message*/
 .error{
 	position: absolute;
@@ -210,13 +218,26 @@ a{
 #editprofile-button{
 	border: solid black 1px;
 	width: 100px;
+	margin-bottom: 20px;
 }
 /* EDIT PROFILE ***********************************************
 **************************************************************/
+#profile-button{
+	margin-bottom: 50px;
+}
+/* Blurb */
+#blurbform textarea{
+	border: solid black 1px;
+	font-size: 15px;
+	font-family: fira_sansregular;
+	padding: 10px;
+	width: 430px;
+	height: 60px;
+}
+/* Skill Form */
 #skillform{
 	width: 570px;
-	margin: auto;
-	margin-bottom: 10px;
+	margin-top: 25px;
 }
 #skillform input{
 	height: 50px;
@@ -226,7 +247,7 @@ a{
 #skillform #type-skill{
 	width: 79%;
 	padding-left: 10px;
-	font-size: 25px;
+	font-size: 15px;
 	font-family: fira_sansregular;
 }
 #skillform #submit-skill{
@@ -237,7 +258,7 @@ a{
 }
 /* User Skills Table */
 #user-skills{
-	margin-top: 50px;
+	margin-top: 20px;
 }
 #user-skills button{
 	border: none;
@@ -250,5 +271,5 @@ a{
 /* Search Results ******************************************************
 **************************************************************/
 #users div{
-	margin-top: 5px;
+	margin-top: 15px;
 }
