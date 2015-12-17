@@ -213,6 +213,8 @@ a{
 .username-field {
 	text-transform: lowercase;
 }
+/* PROFILE */
+#email{margin-top:10px;}
 /* ADMIN PROFILE **********************************************
 **************************************************************/
 #editprofile-button{

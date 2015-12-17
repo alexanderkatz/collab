@@ -41,6 +41,7 @@ module.exports = function(app,passport){
 						admin: admin,
 						skills: skills,
 						username : user.username,
+						email: user.email,
 						blurb: user.blurb
 					});
 				});
