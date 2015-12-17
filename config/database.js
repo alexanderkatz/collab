@@ -1,6 +1,6 @@
 module.exports = {
 	'connection': {
-  		host: 'mysql://b4eab3827be983:f2a8814e@us-cdbr-iron-east-03.cleardb.net/heroku_9ee959aeee4b050?reconnect=true',
+  		host: 'sql.cs.oberlin.edu',
   		dialect: 'mysql',
 
   		pool: {
