@@ -2,8 +2,12 @@
 <% include header.ejs %>
 <div class="container">
 
-	<div id="blurb"><%= blurb %></div>
+	<!-- if admin, display edit profile button -->
+	<% if (admin==true){ %>
+	<input id="editprofile-button" type="button" onclick="location.href='/editprofile';" value="Edit Your Profile"/>
+	<% } %>
 
+	<div id="blurb"><%= blurb %></div>
 
 	<div id="user-skills">
 		<p><%= username%>'s current skills:</p>

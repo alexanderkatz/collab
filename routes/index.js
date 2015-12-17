@@ -15,6 +15,43 @@ module.exports = function(app,passport){
 		res.redirect('/users/'+req.user.username);
 	});
 
+
+	//
+	app.get('/users/:username', isLoggedIn, function(req,res){
+		var Skill = req.db.models.skill;
+		var User = req.db.models.user;
+		var username = req.params.username;
+		var currUserName = req.user.username;
+
+		User.findOne({ where: { username: username }}).then(function(user) {
+			if (user){
+				user.getSkills({order: ['name']}).then(function(skillArray){
+					var skills = [];
+					// store skill names in skills array
+					for (var i = 0; i < skillArray.length; i++) {
+						skills.push(skillArray[i].name);
+					};
+					// if currUserName is the same as requested, give user admin view
+					var admin = false;
+					if (currUserName == username){
+						admin = true
+					}
+					res.render('profile.ejs',{
+						title: 'Profile',
+						admin: admin,
+						skills: skills,
+						username : user.username,
+						blurb: user.blurb
+					});
+				});
+			}
+			else{
+				console.log("User does not exist");
+			}
+		});
+	});
+
+	// EDIT PROFILE
 	app.get('/editprofile', isLoggedIn, function(req, res) {
 		var Skill = req.db.models.skill;
 		var User = req.db.models.user;
@@ -40,40 +77,6 @@ module.exports = function(app,passport){
 			}
 		});
 	})
-
-	app.get('/users/:username', isLoggedIn, function(req,res){
-		var Skill = req.db.models.skill;
-		var User = req.db.models.user;
-		var username = req.params.username;
-		var currUserName = req.user.username;
-
-		User.findOne({ where: { username: username }}).then(function(user) {
-			if (user){
-				user.getSkills({order: ['name']}).then(function(skillArray){
-					var skills = [];
-					// store skill names in skills array
-					for (var i = 0; i < skillArray.length; i++) {
-						skills.push(skillArray[i].name);
-					};
-					// check if currUserName is the same as requested
-					var view = "profile";
-					if (currUserName == username){
-						view = "adminprofile"
-					}
-					res.render(view + '.ejs',{
-						title: 'Profile',
-						skills: skills,
-						username : user.username,
-						blurb: user.blurb
-					});
-				});
-			}
-			else{
-				console.log("User does not exist");
-			}
-		});
-
-	});
 
 	// LOGOUT ==============================
 	app.get('/logout', function(req, res) {
