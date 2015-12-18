@@ -87,10 +87,18 @@ module.exports = function(app,passport){
 
 	// SEARCH
 	app.get('/search', isLoggedIn, function(req,res){
-		console.log("req.body.search "+req.body.search);
+		console.log("req.body.search "+req.query.search);
 		var Skill = req.db.models.skill;
 		var searchTerm = req.query.search;
 		Skill.findOne({where: {name: searchTerm} }).then(function(skill) {
+			if(!skill){ 
+				res.render('searchresults.ejs',{
+					title: 'Results',
+					users: [""],
+					skill: searchTerm
+				});
+				return;
+			}
 			skill.getUsers().then(function(users) {
 				var usernames = [];
 				// store skill names in skills array
@@ -104,11 +112,12 @@ module.exports = function(app,passport){
 					skill: skill.name
 				});
 			});
-		}).catch(function(err) {
+		}).catch(function(err) { //TODO: this will only execute when some error we have yet to encounter occurs. What should we do in this case?
 			console.log(err);
 			res.render('searchresults.ejs',{
 				title: 'Results',
-				users: ["no users you idiot guy!!"]
+				users: ["An error has occured!!"],
+				skill: searchTerm
 			});
 		});
 
